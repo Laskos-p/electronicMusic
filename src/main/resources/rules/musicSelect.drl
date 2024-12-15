@@ -2,28 +2,797 @@
 package com.sample
 
 //list any import classes here.
+import org.kie.api.runtime.KieRuntime
 
+declare enum Responses
+    RH_O_COOL("Cool, but this is basically just rock music!"),
+    GYBE_LOVE("I love those buildups! I could try exploring some electronic music that does that."),
+    GYBE_HANDLE("I think I could handle that, but with a more minimal approach."),
+    GYBE_LIKE("I like the post-rock structure and its epic scale."),
+    FB_TARROT("More of this, but quieter."),
+    NJS_VOCAL("I need more vocal focus."),
+    NJS_BUSY("This feels too busy and melodic for my taste."),
+    DP_LIKE("I like this direction. Time to lose the guitars.", "I'm ready!"),
+    DP_UNSURE("Where can I go from here?"),
+    DP_ELECTRONIC("More of this, but I think I'm ready for pure electronic sounds."),
+    TKS_VOCALS("Remove the vocals, focus on the sound!"),
+    TKS_WEIRD("Too weird for me!"),
+    RH_K_COOL("This is cool, but I'm not ready to give up guitars just yet!"),
+    RH_K_WEIRD("Weird, but good! Maybe some electronic influence, but I still need vocals."),
+    RH_K_ELEC("This is already too electronic for me."),
+    RH_K_DRUMS("I liked the drums and those glitchy bleeps. More like that."),
+    RH_K_DRUMS2("I liked the drums and those glitchy bleeps. More like that. (2)"),
+    A_AMBER("Interesting, so electronic music isn't just mindless button-pushing. More like this!"),
+    KDP_DRUMS("I enjoy the glitchy drum patterns."),
+    KDP_AMBIENT("I prefer the ambient parts of the sound."),
+    NN_ELEC("This, but push it towards electronic music."),
+    NN_MORE_ELEC("Let’s add even more electronic elements!"),
+    MANUEL_G("Time for fully electronic music now."),
+    BBS_LUSH("I need more of these lush, organic tones."),
+    BBS_CHILL("Let’s chill it out a bit more."),
+    TD_DIVE("Make it stranger. I want to feel like I’m watching an '80s educational film."),
+    BOC_MUSIC("I need something more electric-sounding.", "Give me that vibe."),
+    APD_RECENT("That sounds a bit dated. Got anything newer?"),
+    APD_WILDER("These beats are awesome. Can they get wilder?"),
+    APD_STEADY("I’d like a steady beat to anchor this."),
+    APD_NO_DRUMS("I can’t get into these drums, but I like the rest. Remove them."),
+    KST("More Drums."),
+    TDP_AMBIENT("I’m ready for more ambient soundscapes."),
+    TDP_SHORT("This synth style works, but give me shorter, happier tracks."),
+    KST_DRUMS("Focus on the drums."),
+    K_NICE("Add some nice hip-hop beats."),
+    K_REAL("Come on, give me some real rap music!"),
+    NMM_STRANGER("Weirder! Stranger! Make it wonkier!"),
+    NMM_LUSH("More lush, organic sounds please."),
+    TIMMM_LIKE("I like these beats. How about spacing them out a bit more?"),
+    TIMMM_CLASSIC("I can handle the weird stuff now. Bring on the classics!"),
+    TIMMM_STRANGER("Even stranger and more experimental!"),
+    TIMMM_BEATS("Keep the beats, but add something dark and operatic."),
+    FLC("I want this sound, but let’s place it in a jungle.", "Natural vibes."),
+    ORB("Maybe something a little less ambient this time."),
+    GC("Let’s go even more ambient."),
+    BENO_BUSY("This album feels too busy for me."),
+    BENO_MIX("Let’s mix this vibe with Orbital - Brown Album."),
+    GTALK("Whoa, sampling is awesome! I want more of this!"),
+    BU_HAPPIER("Make it lighter, happier. Focus on the beats over vocals."),
+    BU_DARKER("Drop the samples but keep the dark, atmospheric beats."),
+    LGG_LESS("Rainforest music, but tone down the craziness a bit."),
+    LGG_LOVE("I loved those strange vocals and the rhythm. More like this!"),
+    TFSOL_READY("I think I’m ready to explore ambient music."),
+    TFSOL_MORE("More ambient, please!"),
+    TFSOL_TRIPPY("Make it feel like I’m on a psychedelic trip."),
+    TFSOL_DRUMS("Focus on those fast, hard-hitting drums."),
+    OBA_LIKE("I enjoyed Halcyon + On + On. Similar, please!"),
+    OBA_DANCE("I don’t ever want to stop dancing.", "Keep that energy alive."),
+    OBA_SUBTLE("Less melody, more subtle tones."),
+    OBA_MIX("Mix this with Brian Eno’s Ambient 2: Plateaux of Mirror."),
+    JHI_PIANO("I liked the piano parts but not the heavy segments."),
+    JHI_BEATS("The heavier beats, like Collider, stood out to me."),
+    DSE("Loving these instrumental beats. Give me more!"),
+    TAV_SAMPLING("More sampling, but keep the hip-hop vibe.", "Creative soundscapes."),
+    TAV_DARKER("Darker, sadder, with more experimental samples."),
+    MAM("I enjoyed Burial’s atmosphere better.", "Let’s try that style."),
+    MR("Make those drums 10 times louder and crazier!"),
+    SPG_FROZEN("This, but I want to feel like I’m exploring a frozen wasteland."),
+    SPG_LIKE("I enjoy this fun, danceable music. Give me a huge, diverse playlist."),
+    SPG_DRUMS("Focus more on the fast, heavy drums."),
+    DPD_FUN("I like this fun sound, but can we add a tribal twist?"),
+    DPD_DANCE("I don’t ever want to stop dancing!"),
+    DPD_DIRTY("Make it dirtier. Raw and gritty!"),
+    DPD_CARELESS("Carefree, fun music I can dance to. I need a big collection of this."),
+    VSRC_CALM("Tone down the drums, but keep the orchestral samples."),
+    GOLDIE("This, but make me feel like I’m in a frozen wasteland."),
+    VA("I want some more traditional house music"),
+    END("Okay, I like it Picasso");
 
-
-//declare any global variables here
-
-
-
-
-rule "Your First Rule"
-
-    when
-        //conditions
-    then
-        //actions
-
+    fullName : String;
 end
 
-rule "Your Second Rule"
-    //include attributes such as "salience" here...
-    when
-        //conditions
-    then
-        //actions
 
+declare GUI-state
+	question: String
+	answerOptions: String []
+	answer: String
+end
+
+rule "INIT"
+
+    when
+    	$state: GUI-state(question == null)
+    then
+    	$state.setQuestion("What is your favourite genre?");
+    	$state.setAnserOptions(new String[]{"ROCK", "RAP"});
+    	
+    	System.out.println("Question sent to GUI: " + $state.getQuestion());
+    	
+    	update($state);
+end
+
+rule "Radiohead - OK Computer"
+	when
+		$state: GUI-state(answer == "ROCK");
+	then
+		$state.setQuestion("Radiohead - OK Computer");
+		$state.setAnserOptions(new String[]{Responses.INIT.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Radiohead - Kid A"
+
+    when
+    	$state: GUI-state(answer == Responses.INIT.getFullName());
+    then
+    	$state.setQuestion("Radiohead - Kid A");
+    	$state.setAnserOptions(new String[]{Responses.RH_K_COOL.getFullName(), Responses.RH_K_WEIRD.getFullName(),
+    										Responses.RH_K_ELEC.getFullName(), Responses.RH_K_DRUMS.getFullName(),
+    										Responses.RH_K_DRUMS2.getFullName(), Responses.END.getFullName()});
+    	
+    	System.out.println("Question sent to GUI: " + $state.getQuestion());
+    	
+    	update($state);
+end
+
+rule "Darkside - Psychic"
+	when
+		$state: GUI-state(answer == Responses.RH_K_COOL.getFullName() || answer == Responses.TKS_WEIRD.getFullName());
+	then
+		$state.setQuestion("Darkside - Psychic");
+		$state.setAnserOptions(new String[]{Responses.DP_LIKE.getFullName(), Responses.DP_UNSURE.getFullName(),
+											Responses.DP_ELECTRONIC.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "The Knife - Silent Shout"
+	when
+		$state: GUI-state(answer == Responses.RH_K_WEIRD.getFullName());
+	then
+		$state.setQuestion("The Knife - Silent Shout");
+		$state.setAnserOptions(new String[]{Responses.TKS_WEIRD.getFullName(), Responses.TKS_VOCALS.getFullName(),
+											Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Godspeed You! Black Emperor - Lift Your Skinny Fists Like Antennas to Heaven"
+	when
+		$state: GUI-state(answer == Responses.RH_K_ELEC.getFullName());
+	then
+		$state.setQuestion("Godspeed You! Black Emperor - Lift Your Skinny Fists Like Antennas to Heaven");
+		$state.setAnserOptions(new String[]{Responses.GYBE_LOVE.getFullName(), Responses.GYBE_HANDLE.getFullName(),
+											Responses.GYBE_LIKE.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Autechre - Amber"
+	when
+		$state: GUI-state(answer == Responses.RH_K_DRUMS.getFullName() || answer == Responses.KDP_DRUMS.getFullName() || answer == Responses.KST.getFullName());
+	then
+		$state.setQuestion("Autechre - Amber");
+		$state.setAnserOptions(new String[]{Responses.A_AMBER.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Aphex Twin - Selected Ambient Works"
+	when
+		$state: GUI-state(answer == Responses.RH_K_DRUMS2.getFullName() || answer == Responses.BOC_MUSIC.getFullName() || answer == Responses.TIMMM_CLASSIC.getFullName());
+	then
+		$state.setQuestion("Aphex Twin - Selected Ambient Works");
+		$state.setAnserOptions(new String[]{Responses.APD_RECENT.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Nicolas Jarr - Space is Only Noise"
+	when
+		$state: GUI-state(answer == Responses.DP_ELECTRONIC.getFullName());
+	then
+		$state.setQuestion("Nicolas Jarr - Space is Only Noise");
+		$state.setAnserOptions(new String[]{Responses.NJS_VOCAL.getFullName(), Responses.NJS_BUSY.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Villalobos - Alcachofa"
+	when
+		$state: GUI-state(answer == Responses.NJS_BUSY.getFullName());
+	then
+		$state.setQuestion("Villalobos - Alcachofa");
+		$state.setAnserOptions(new String[]{Responses.VA.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Villalobos - Alcachofa2"
+	when
+		$state: GUI-state(answer == Responses.OBA_SUBTLE.getFullName());
+	then
+		$state.setQuestion("Villalobos - Alcachofa");
+		$state.setAnserOptions(new String[]{Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Bonbo - Black Sands"
+	when
+		$state: GUI-state(answer == Responses.DP_UNSURE.getFullName());
+	then
+		$state.setQuestion("Bonbo - Black Sands");
+		$state.setAnserOptions(new String[]{Responses.BBS_CHILL.getFullName(), Responses.BBS_LUSH.getFullName(),
+											Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Bonbo - Black Sands2"
+	when
+		$state: GUI-state(answer == Responses.NMM_LUSH.getFullName());
+	then
+		$state.setQuestion("Bonbo - Black Sands");
+		$state.setAnserOptions(new String[]{Responses.BBS_CHILL.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Tycho - Dive"
+	when
+		$state: GUI-state(answer == Responses.BBS_CHILL.getFullName());
+	then
+		$state.setQuestion("Tycho - Dive");
+		$state.setAnserOptions(new String[]{Responses.TD_DIVE.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Boards of Canada - Music Has the Right to Children"
+	when
+		$state: GUI-state(answer == Responses.TD_DIVE.getFullName() || answer == Responses.TIMMM_LIKE.getFullName());
+	then
+		$state.setQuestion("Boards of Canada - Music Has the Right to Children");
+		$state.setAnserOptions(new String[]{Responses.BOC_MUSIC.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Kashiwa Daisuke - Program Music"
+	when
+		$state: GUI-state(answer == Responses.GYBE_LIKE.getFullName() || answer == Responses.VSRC_CALM.getFullName());
+	then
+		$state.setQuestion("Kashiwa Daisuke - Program Music");
+		$state.setAnserOptions(new String[]{Responses.KDP_DRUMS.getFullName(), Responses.KDP_AMBIENT.getFullName(),
+											Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Fuck Buttons - Tarot Sport"
+	when
+		$state: GUI-state(answer == Responses.GYBE_LOVE.getFullName());
+	then
+		$state.setQuestion("Fuck Buttons - Tarot Sport");
+		$state.setAnserOptions(new String[]{Responses.FB_TARROT.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Tangerine Dream - Phaedra"
+	when
+		$state: GUI-state(answer == Responses.FB_TARROT.getFullName() || answer == Responses.KDP_AMBIENT.getFullName() || answer == Responses.MANUEL_G.getFullName());
+	then
+		$state.setQuestion("Tangerine Dream - Phaedra");
+		$state.setAnserOptions(new String[]{Responses.TDP_SHORT.getFullName(), Responses.TDP_AMBIENT.getFullName(),
+											Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Neu! - Neu!"
+	when
+		$state: GUI-state(answer == Responses.GYBE_HANDLE.getFullName());
+	then
+		$state.setQuestion("Neu! - Neu!");
+		$state.setAnserOptions(new String[]{Responses.NN_MORE_ELEC.getFullName(), Responses.NN_ELEC.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Manuel Gottsching-e2-e4"
+	when
+		$state: GUI-state(answer == Responses.GYBE_HANDLE.getFullName());
+	then
+		$state.setQuestion("Manuel Gottsching-e2-e4");
+		$state.setAnserOptions(new String[]{Responses.MANUEL_G.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Mort Garrison - Plantasia"
+	when
+		$state: GUI-state(answer == Responses.GYBE_HANDLE.getFullName());
+	then
+		$state.setQuestion("Mort Garrison - Plantasia");
+		$state.setAnserOptions(new String[]{Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Aphex Twin - Drukqs"
+	when
+		$state: GUI-state(answer == Responses.GYBE_HANDLE.getFullName());
+	then
+		$state.setQuestion("Aphex Twin - Drukqs");
+		$state.setAnserOptions(new String[]{Responses.APD_RECENT.getFullName(), Responses.APD_WILDER.getFullName(),
+											Responses.APD_STEADY.getFullName(), Responses.APD_NO_DRUMS.getFullName(),
+											Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Klaus Schulze - Timewind"
+	when
+		$state: GUI-state(answer == Responses.APD_NO_DRUMS.getFullName() || answer == Responses.NN_ELEC.getFullName());
+	then
+		$state.setQuestion("Aphex Twin - Drukqs");
+		$state.setAnserOptions(new String[]{Responses.KST.getFullName(), Responses.APD_STEADY.getFullName(),
+											Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Global Communication - 76:14"
+	when
+		$state: GUI-state(answer == Responses.TFSOL_READY.getFullName() || answer == Responses.TDP_AMBIENT.getFullName() || answer == Responses.OBA_LIKE.getFullName());
+	then
+		$state.setQuestion("Global Communication - 76:14");
+		$state.setAnserOptions(new String[]{Responses.GC.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Brian Eno - Amient 2: The Plateaux of Mirror"
+	when
+		$state: GUI-state(answer == Responses.GC.getFullName());
+	then
+		$state.setQuestion("Brian Eno - Amient 2: The Plateaux of Mirror");
+		$state.setAnserOptions(new String[]{Responses.BENO_MIX.getFullName(), Responses.BENO_BUSY.getFullName(),
+											Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Brian Eno - Ambient 1: Music For Airports"
+	when
+		$state: GUI-state(answer == Responses.BENO_BUSY.getFullName());
+	then
+		$state.setQuestion("Brian Eno - Ambient 1: Music For Airports");
+		$state.setAnserOptions(new String[]{Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Jon Hopkins - Immunity"
+	when
+		$state: GUI-state(answer == Responses.BENO_MIX.getFullName() || answer == Responses.OBA_MIX.getFullName());
+	then
+		$state.setQuestion("Jon Hopkins - Immunity");
+		$state.setAnserOptions(new String[]{Responses.JHI_PIANO.getFullName(), Responses.JHI_BEATS.getFullName(),
+											Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Helios - Eingya"
+	when
+		$state: GUI-state(answer == Responses.JHI_PIANO.getFullName());
+	then
+		$state.setQuestion("Helios - Eingya");
+		$state.setAnserOptions(new String[]{Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Daft Punk - Discovery"
+	when
+		$state: GUI-state(answer == Responses.JHI_BEATS.getFullName());
+	then
+		$state.setQuestion("Daft Punk - Discovery");
+		$state.setAnserOptions(new String[]{Responses.DPD_FUN.getFullName(), Responses.DPD_DANCE.getFullName(),
+											Responses.DPD_DIRTY.getFullName(), Responses.DPD_CARELESS.getFullName(),
+											Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Daft Punk - Discovery2"
+	when
+		$state: GUI-state(answer == Responses.OBA_DANCE.getFullName());
+	then
+		$state.setQuestion("Daft Punk - Discovery");
+		$state.setAnserOptions(new String[]{Responses.DPD_FUN.getFullName(), Responses.DPD_DIRTY.getFullName(),
+											Responses.DPD_CARELESS.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Justice - Cross"
+	when
+		$state: GUI-state(answer == Responses.DPD_DIRTY.getFullName());
+	then
+		$state.setQuestion("Justice - Cross");
+		$state.setAnserOptions(new String[]{Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Sasha & John Digweed - Northern Exposure"
+	when
+		$state: GUI-state(answer == Responses.GOLDIE.getFullName() || answer == Responses.DPD_CARELESS.getFullName());
+	then
+		$state.setQuestion("Sasha & John Digweed - Northern Exposure");
+		$state.setAnserOptions(new String[]{Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Shpongle - Are You Shpongled?"
+	when
+		$state: GUI-state(answer == Responses.TFSOL_TRIPPY.getFullName() || answer == Responses.DPD_FUN.getFullName());
+	then
+		$state.setQuestion("Shpongle - Are You Shpongled?");
+		$state.setAnserOptions(new String[]{Responses.DPD_CARELESS.getFullName(), Responses.TFSOL_DRUMS.getFullName(),
+											Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Goldie - Timeless"
+	when
+		$state: GUI-state(answer == Responses.TFSOL_DRUMS.getFullName());
+	then
+		$state.setQuestion("Goldie - Timeless");
+		$state.setAnserOptions(new String[]{Responses.GOLDIE.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Orbital - Brown Album"
+	when
+		$state: GUI-state(answer == Responses.VA.getFullName());
+	then
+		$state.setQuestion("Orbital - Brown Album");
+		$state.setAnserOptions(new String[]{Responses.OBA_LIKE.getFullName(), Responses.OBA_DANCE.getFullName(),
+											Responses.OBA_MIX.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Orbital - Brown Album2"
+	when
+		$state: GUI-state(answer == Responses.DPD_DANCE.getFullName());
+	then
+		$state.setQuestion("Orbital - Brown Album");
+		$state.setAnserOptions(new String[]{Responses.OBA_LIKE.getFullName(), Responses.OBA_MIX.getFullName(), 
+											Responses.OBA_SUBTLE.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Orb - The Orb's Adventures Beyond the Ultraworld"
+	when
+		$state: GUI-state(answer == Responses.APD_STEADY.getFullName());
+	then
+		$state.setQuestion("Orb - The Orb's Adventures Beyond the Ultraworld");
+		$state.setAnserOptions(new String[]{Responses.ORB.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "The Future Sound of London - Lifeforms"
+	when
+		$state: GUI-state(answer == Responses.LGG_LESS.getFullName() || answer == Responses.TFSOL_MORE.getFullName());
+	then
+		$state.setQuestion("Orb - The Orb's Adventures Beyond the Ultraworld");
+		$state.setAnserOptions(new String[]{Responses.TFSOL_READY.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "The Future Sound of London - Accelerator"
+	when
+		$state: GUI-state(answer == Responses.ORB.getFullName());
+	then
+		$state.setQuestion("Orb - The Orb's Adventures Beyond the Ultraworld");
+		$state.setAnserOptions(new String[]{Responses.TFSOL_MORE.getFullName(), Responses.TFSOL_TRIPPY.getFullName(),
+											Responses.TFSOL_DRUMS.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Kanye West - 808s & Heartbreak"
+	when
+		$state: GUI-state(answer == "RAP");
+	then
+		$state.setQuestion("Kanye West - 808s & Heartbreak");
+		$state.setAnserOptions(new String[]{Responses.K_NICE.getFullName(), Responses.K_REAL.getFullName(),
+											Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Nujabes - Metaphorical Music"
+	when
+		$state: GUI-state(answer == Responses.K_NICE.getFullName() || answer == Responses.DSE.getFullName());
+	then
+		$state.setQuestion("Kanye West - 808s & Heartbreak");
+		$state.setAnserOptions(new String[]{Responses.NMM_LUSH.getFullName(), Responses.NMM_STRANGER.getFullName(),
+											Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Nujabes - Metaphorical Music2"
+	when
+		$state: GUI-state(answer == Responses.BBS_LUSH.getFullName());
+	then
+		$state.setQuestion("Kanye West - 808s & Heartbreak");
+		$state.setAnserOptions(new String[]{Responses.NMM_STRANGER.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "TOKiMONSTA - Midnight Menu"
+	when
+		$state: GUI-state(answer == Responses.TKS_VOCALS.getFullName() || answer == Responses.NMM_STRANGER.getFullName());
+	then
+		$state.setQuestion("TOKiMONSTA - Midnight Menu");
+		$state.setAnserOptions(new String[]{Responses.TIMMM_LIKE.getFullName(), Responses.TIMMM_CLASSIC.getFullName(),
+											Responses.TIMMM_STRANGER.getFullName(), Responses.TIMMM_BEATS.getFullName(),
+											Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "TOKiMONSTA - Midnight Menu2"
+	when
+		$state: GUI-state(answer == Responses.BU_HAPPIER.getFullName());
+	then
+		$state.setQuestion("TOKiMONSTA - Midnight Menu");
+		$state.setAnserOptions(new String[]{Responses.TIMMM_LIKE.getFullName(), Responses.TIMMM_CLASSIC.getFullName(),
+											Responses.TIMMM_STRANGER.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Flying lotus - Cosmogramma"
+	when
+		$state: GUI-state(answer == Responses.TIMMM_STRANGER.getFullName() || answer == Responses.APD_RECENT.getFullName());
+	then
+		$state.setQuestion("Flying lotus - Cosmogramma");
+		$state.setAnserOptions(new String[]{Responses.FLC.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Lone - Galaxy Garden"
+	when
+		$state: GUI-state(answer == Responses.FLC.getFullName());
+	then
+		$state.setQuestion("Lone - Galaxy Garden");
+		$state.setAnserOptions(new String[]{Responses.LGG_LESS.getFullName(), Responses.LGG_LOVE.getFullName(),
+											Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Machinedrum - Room(s)"
+	when
+		$state: GUI-state(answer == Responses.LGG_LOVE.getFullName() || answer == Responses.APD_WILDER.getFullName());
+	then
+		$state.setQuestion("Machinedrum - Room(s)");
+		$state.setAnserOptions(new String[]{Responses.MR.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Venetian Snares - Rossz Csillag Alatt Született"
+	when
+		$state: GUI-state(answer == Responses.MR.getFullName());
+	then
+		$state.setQuestion("Venetian Snares - Rossz Csillag Alatt Született");
+		$state.setAnserOptions(new String[]{Responses.VSRC_CALM.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Girl Talk - Feed the Animals"
+	when
+		$state: GUI-state(answer == Responses.K_REAL.getFullName());
+	then
+		$state.setQuestion("Girl Talk - Feed the Animals");
+		$state.setAnserOptions(new String[]{Responses.GTALK.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "The Avalanches - Since I left You"
+	when
+		$state: GUI-state(answer == Responses.GTALK.getFullName());
+	then
+		$state.setQuestion("The Avalanches - Since I left You");
+		$state.setAnserOptions(new String[]{Responses.TAV_SAMPLING.getFullName(), Responses.TAV_DARKER.getFullName(),
+											Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "DJ Shadow - What Does Your Soul Look Like Part 1"
+	when
+		$state: GUI-state(answer == Responses.TAV_SAMPLING.getFullName());
+	then
+		$state.setQuestion("DJ Shadow - What Does Your Soul Look Like Part 1");
+		$state.setAnserOptions(new String[]{Responses.DSE.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Burial - Untrue"
+	when
+		$state: GUI-state(answer == Responses.TAV_DARKER.getFullName());
+	then
+		$state.setQuestion("Burial - Untrue");
+		$state.setAnserOptions(new String[]{Responses.BU_HAPPIER.getFullName(), Responses.BU_DARKER.getFullName(),
+											Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Burial - Untrue2"
+	when
+		$state: GUI-state(answer == Responses.TIMMM_BEATS.getFullName());
+	then
+		$state.setQuestion("Burial - Untrue");
+		$state.setAnserOptions(new String[]{Responses.BU_DARKER.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "Massive Attack - Mezzanine"
+	when
+		$state: GUI-state(answer == Responses.BU_DARKER.getFullName());
+	then
+		$state.setQuestion("Massive Attack - Mezzanine");
+		$state.setAnserOptions(new String[]{Responses.MAM.getFullName(), Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "James Blake - James Blake"
+	when
+		$state: GUI-state(answer == Responses.MAM.getFullName() || answer == Responses.DP_LIKE.getFullName() || answer == Responses.NJS_VOCAL.getFullName());
+	then
+		$state.setQuestion("James Blake - James Blake");
+		$state.setAnserOptions(new String[]{Responses.END.getFullName()});
+		
+		$state.setAnswer(null);
+		
+		update($state);
+end
+
+rule "END"
+	when
+		$state: GUI-state(answer == Responses.END.getFullName());
+	then
+		$state.setQuestion("You decided to stick with " + $state.getQuestion() + ". Good choice!");
+		$state.setAnserOptions(new String[]{});
+		
+		$state.setAnswer(null);
+		
+		update($state);
 end
