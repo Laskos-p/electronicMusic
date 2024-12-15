@@ -113,7 +113,7 @@ rule "Radiohead - OK Computer"
 		$state: GUI-state(answer == "ROCK");
 	then
 		$state.setQuestion("Radiohead - OK Computer");
-		$state.setAnserOptions(new String[]{Responses.INIT.getFullName(), Responses.END.getFullName()});
+		$state.setAnserOptions(new String[]{Responses.RH_O_COOL.getFullName(), Responses.END.getFullName()});
 		
 		$state.setAnswer(null);
 		
@@ -123,7 +123,7 @@ end
 rule "Radiohead - Kid A"
 
     when
-    	$state: GUI-state(answer == Responses.INIT.getFullName());
+    	$state: GUI-state(answer == Responses.RH_O_COOL.getFullName());
     then
     	$state.setQuestion("Radiohead - Kid A");
     	$state.setAnserOptions(new String[]{Responses.RH_K_COOL.getFullName(), Responses.RH_K_WEIRD.getFullName(),
