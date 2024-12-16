@@ -1,4 +1,4 @@
-# Sysytem Rekomendacji Muzycznych - Drools Rule Engine
+# System Rekomendacji Muzycznych - Drools Rule Engine
 
 ## Opis Projektu
 
