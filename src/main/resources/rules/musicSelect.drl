@@ -117,8 +117,7 @@ rule "INIT"
         String ans = askQuestion(gui, "What is your favourite genre?", new String[]{"ROCK", "RAP"});
 
 		$state.setAnswer(ans);
-
-		//askQuestion(gui, kcontext.getKieRuntime());
+		
 		update($state);
 end
 
@@ -565,23 +564,18 @@ rule "Orbital - Brown Album2"
 		update($state);
 end
 
-rule "Orb - The Orb's Adventures Beyond the Ultraworld"
+rule "Orb - The Orbs Adventures Beyond the Ultraworld"
 	when
 		$state: GUIState(answer == Responses.APD_STEADY.getFullName());
 	then
-//        Without those comments, the rule does not work. Why? I don't know
-//        System.out.println("In the Orb - The Orb's Adventures Beyond the Ultraworld rule");
-		$state.setQuestion("Orb - The Orb's Adventures Beyond the Ultraworld");
+
+		$state.setQuestion("Orb - The Orbs Adventures Beyond the Ultraworld");
 		$state.setAnswerOptions(new String[]{Responses.ORB.getFullName(), Responses.END.getFullName()});
 
-//        System.out.println("Ask the question");
 		String ans = askQuestion(gui, $state.getQuestion(), $state.getAnswerOptions());
         $state.setAnswer(ans);
-
-//        System.out.println("Answer:");
-//        System.out.println(ans);
+        
 		update($state);
-//		System.out.println(" fixes issue with this rule: blah blah blah");
 end
 
 rule "The Future Sound of London - Lifeforms"
