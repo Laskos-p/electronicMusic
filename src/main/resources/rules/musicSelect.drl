@@ -7,7 +7,8 @@ import com.sample.GUI
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 import java.util.List
-import java.util.Arrays;
+import java.util.Arrays
+import javax.swing.Spring;
 
 global GUI gui;
 
@@ -210,7 +211,7 @@ rule "Aphex Twin - Selected Ambient Works"
 		$state.setAnswerOptions(new String[]{Responses.APD_RECENT.getFullName(), Responses.END.getFullName()});
 
 		String ans = askQuestion(gui, $state.getQuestion(), $state.getAnswerOptions());
-                $state.setAnswer(ans);
+        $state.setAnswer(ans);
 		update($state);
 end
 
@@ -383,7 +384,7 @@ rule "Aphex Twin - Drukqs"
 											Responses.END.getFullName()});
 
 		String ans = askQuestion(gui, $state.getQuestion(), $state.getAnswerOptions());
-                $state.setAnswer(ans);
+        $state.setAnswer(ans);
 		update($state);
 end
 
@@ -395,8 +396,8 @@ rule "Klaus Schulze - Timewind"
 		$state.setAnswerOptions(new String[]{Responses.KST.getFullName(), Responses.APD_STEADY.getFullName(),
 											Responses.END.getFullName()});
 
-		String ans = askQuestion(gui, $state.getQuestion(), $state.getAnswerOptions());
-                $state.setAnswer(ans);
+        String ans = askQuestion(gui, $state.getQuestion(), $state.getAnswerOptions());
+        $state.setAnswer(ans);
 		update($state);
 end
 
@@ -568,12 +569,19 @@ rule "Orb - The Orb's Adventures Beyond the Ultraworld"
 	when
 		$state: GUIState(answer == Responses.APD_STEADY.getFullName());
 	then
+//        Without those comments, the rule does not work. Why? I don't know
+//        System.out.println("In the Orb - The Orb's Adventures Beyond the Ultraworld rule");
 		$state.setQuestion("Orb - The Orb's Adventures Beyond the Ultraworld");
 		$state.setAnswerOptions(new String[]{Responses.ORB.getFullName(), Responses.END.getFullName()});
 
+//        System.out.println("Ask the question");
 		String ans = askQuestion(gui, $state.getQuestion(), $state.getAnswerOptions());
-                $state.setAnswer(ans);
+        $state.setAnswer(ans);
+
+//        System.out.println("Answer:");
+//        System.out.println(ans);
 		update($state);
+//		System.out.println(" fixes issue with this rule: blah blah blah");
 end
 
 rule "The Future Sound of London - Lifeforms"
@@ -820,12 +828,11 @@ function String askQuestion(GUI gui, String pytanie, String[] poss) {
 
     while (gui.getSelected() == null) {
         try {
-            Thread.sleep(150);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
     }
 
-    System.out.println("Selected: " + gui.getSelected());
     return gui.getSelected();
 }
