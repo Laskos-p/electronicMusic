@@ -351,7 +351,7 @@ end
 
 rule "Manuel Gottsching-e2-e4"
 	when
-		$state: GUIState(answer == Responses.GYBE_HANDLE.getFullName());
+		$state: GUIState(answer == Responses.NN_MORE_ELEC.getFullName());
 	then
 		$state.setQuestion("Manuel Gottsching-e2-e4");
 		$state.setAnswerOptions(new String[]{Responses.MANUEL_G.getFullName(), Responses.END.getFullName()});
@@ -363,7 +363,7 @@ end
 
 rule "Mort Garrison - Plantasia"
 	when
-		$state: GUIState(answer == Responses.GYBE_HANDLE.getFullName());
+		$state: GUIState(answer == Responses.TDP_SHORT.getFullName());
 	then
 		$state.setQuestion("Mort Garrison - Plantasia");
 		$state.setAnswerOptions(new String[]{Responses.END.getFullName()});
@@ -375,7 +375,7 @@ end
 
 rule "Aphex Twin - Drukqs"
 	when
-		$state: GUIState(answer == Responses.GYBE_HANDLE.getFullName());
+		$state: GUIState(answer == Responses.A_AMBER.getFullName());
 	then
 		$state.setQuestion("Aphex Twin - Drukqs");
 		$state.setAnswerOptions(new String[]{Responses.APD_RECENT.getFullName(), Responses.APD_WILDER.getFullName(),
@@ -391,7 +391,7 @@ rule "Klaus Schulze - Timewind"
 	when
 		$state: GUIState(answer == Responses.APD_NO_DRUMS.getFullName() || answer == Responses.NN_ELEC.getFullName());
 	then
-		$state.setQuestion("Aphex Twin - Drukqs");
+		$state.setQuestion("Klaus Schulze - Timewind");
 		$state.setAnswerOptions(new String[]{Responses.KST.getFullName(), Responses.APD_STEADY.getFullName(),
 											Responses.END.getFullName()});
 
@@ -580,7 +580,7 @@ rule "The Future Sound of London - Lifeforms"
 	when
 		$state: GUIState(answer == Responses.LGG_LESS.getFullName() || answer == Responses.TFSOL_MORE.getFullName());
 	then
-		$state.setQuestion("Orb - The Orb's Adventures Beyond the Ultraworld");
+		$state.setQuestion("The Future Sound of London - Lifeforms");
 		$state.setAnswerOptions(new String[]{Responses.TFSOL_READY.getFullName(), Responses.END.getFullName()});
 
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
@@ -592,7 +592,7 @@ rule "The Future Sound of London - Accelerator"
 	when
 		$state: GUIState(answer == Responses.ORB.getFullName());
 	then
-		$state.setQuestion("Orb - The Orb's Adventures Beyond the Ultraworld");
+		$state.setQuestion("The Future Sound of London - Accelerator");
 		$state.setAnswerOptions(new String[]{Responses.TFSOL_MORE.getFullName(), Responses.TFSOL_TRIPPY.getFullName(),
 											Responses.TFSOL_DRUMS.getFullName(), Responses.END.getFullName()});
 
@@ -618,7 +618,7 @@ rule "Nujabes - Metaphorical Music"
 	when
 		$state: GUIState(answer == Responses.K_NICE.getFullName() || answer == Responses.DSE.getFullName());
 	then
-		$state.setQuestion("Kanye West - 808s & Heartbreak");
+		$state.setQuestion("Nujabes - Metaphorical Music");
 		$state.setAnswerOptions(new String[]{Responses.NMM_LUSH.getFullName(), Responses.NMM_STRANGER.getFullName(),
 											Responses.END.getFullName()});
 
@@ -631,7 +631,7 @@ rule "Nujabes - Metaphorical Music2"
 	when
 		$state: GUIState(answer == Responses.BBS_LUSH.getFullName());
 	then
-		$state.setQuestion("Kanye West - 808s & Heartbreak");
+		$state.setQuestion("Nujabes - Metaphorical Music");
 		$state.setAnswerOptions(new String[]{Responses.NMM_STRANGER.getFullName(), Responses.END.getFullName()});
 
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
@@ -797,7 +797,7 @@ rule "James Blake - James Blake"
 		$state.setAnswerOptions(new String[]{Responses.END.getFullName()});
 
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
-                $state.setAnswer(ans);
+        $state.setAnswer(ans);
 		update($state);
 end
 
@@ -826,5 +826,6 @@ function String wyswietl(GUI gui, String pytanie, String[] poss) {
         }
     }
 
+    System.out.println("Selected: " + gui.getSelected());
     return gui.getSelected();
 }
