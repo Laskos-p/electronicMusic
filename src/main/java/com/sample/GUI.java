@@ -9,19 +9,27 @@ public class GUI {
     private JFrame frame;
     private ButtonGroup buttonGroup;
     private String selected;
-
+    private JPanel panel;
 
     public GUI() {
         frame = new JFrame();
-        frame.setSize(500, 500);
+        frame.setSize(800, 500);
+
+        frame.setLayout(new GridBagLayout());
 
         label = new JLabel();
-//            label.setBounds(100, 100, 100, 30);
-        frame.add(label);
+        label.setFont(new Font("Arial", Font.BOLD, 16));
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        frame.add(panel);
+        panel.add(label);
 
         buttonGroup = new ButtonGroup();
 
-        frame.setLayout(new GridLayout(0, 1));
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
@@ -37,15 +45,30 @@ public class GUI {
     public void setAnswerOptions(String[] options) {
         for (AbstractButton button: Collections.list(buttonGroup.getElements())) {
             buttonGroup.remove(button);
-            frame.remove(button);
+            panel.remove(button);
         }
-//            buttonGroup = new ButtonGroup();
-//            System.out.println(options.length);
+
+            buttonGroup = new ButtonGroup();
         for (String option: options) {
             JRadioButton button = new JRadioButton(option);
-//                button.setBounds(100, 150, 100, 30);
+            button.setFont(new Font("Arial", Font.PLAIN, 14));
+            button.setBackground(Color.LIGHT_GRAY);
+            button.setFocusPainted(false);
+            button.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(Color.GRAY),
+                    BorderFactory.createEmptyBorder(5, 10, 5, 10)
+            ));
+            button.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    button.setBackground(Color.GRAY);
+                }
+
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    button.setBackground(Color.LIGHT_GRAY);
+                }
+            });
             buttonGroup.add(button);
-            frame.add(button);
+            panel.add(button);
             button.setActionCommand(option);
             button.addActionListener(e -> setSelected());
         }
