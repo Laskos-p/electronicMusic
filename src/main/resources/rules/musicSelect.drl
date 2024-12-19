@@ -111,9 +111,10 @@ rule "INIT"
     when
     	$state: GUIState(question == null)
     then
+   		$state.setQuestion("What is your favourite genre?");
+ 
         String ans = wyswietl(gui, "What is your favourite genre?", new String[]{"ROCK", "RAP"});
 
-		$state.setQuestion("What is your favourite genre?");
 		$state.setAnswer(ans);
 
 		//askQuestion(gui, kcontext.getKieRuntime());
@@ -139,7 +140,7 @@ rule "Radiohead - Kid A"
 
     when
     	$state: GUIState(answer == Responses.RH_O_COOL.getFullName());
-    then
+    then    
     	$state.setQuestion("Radiohead - Kid A");
     	$state.setAnswerOptions(new String[]{Responses.RH_K_COOL.getFullName(), Responses.RH_K_WEIRD.getFullName(),
     										Responses.RH_K_ELEC.getFullName(), Responses.RH_K_DRUMS.getFullName(),
@@ -183,7 +184,7 @@ rule "Godspeed You! Black Emperor - Lift Your Skinny Fists Like Antennas to Heav
 		$state.setQuestion("Godspeed You! Black Emperor - Lift Your Skinny Fists Like Antennas to Heaven");
 		$state.setAnswerOptions(new String[]{Responses.GYBE_LOVE.getFullName(), Responses.GYBE_HANDLE.getFullName(),
 											Responses.GYBE_LIKE.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -195,7 +196,7 @@ rule "Autechre - Amber"
 	then
 		$state.setQuestion("Autechre - Amber");
 		$state.setAnswerOptions(new String[]{Responses.A_AMBER.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -207,7 +208,7 @@ rule "Aphex Twin - Selected Ambient Works"
 	then
 		$state.setQuestion("Aphex Twin - Selected Ambient Works");
 		$state.setAnswerOptions(new String[]{Responses.APD_RECENT.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -219,7 +220,7 @@ rule "Nicolas Jarr - Space is Only Noise"
 	then
 		$state.setQuestion("Nicolas Jarr - Space is Only Noise");
 		$state.setAnswerOptions(new String[]{Responses.NJS_VOCAL.getFullName(), Responses.NJS_BUSY.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -231,7 +232,7 @@ rule "Villalobos - Alcachofa"
 	then
 		$state.setQuestion("Villalobos - Alcachofa");
 		$state.setAnswerOptions(new String[]{Responses.VA.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -243,7 +244,7 @@ rule "Villalobos - Alcachofa2"
 	then
 		$state.setQuestion("Villalobos - Alcachofa");
 		$state.setAnswerOptions(new String[]{Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -256,7 +257,7 @@ rule "Bonbo - Black Sands"
 		$state.setQuestion("Bonbo - Black Sands");
 		$state.setAnswerOptions(new String[]{Responses.BBS_CHILL.getFullName(), Responses.BBS_LUSH.getFullName(),
 											Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -268,7 +269,7 @@ rule "Bonbo - Black Sands2"
 	then
 		$state.setQuestion("Bonbo - Black Sands");
 		$state.setAnswerOptions(new String[]{Responses.BBS_CHILL.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -280,7 +281,7 @@ rule "Tycho - Dive"
 	then
 		$state.setQuestion("Tycho - Dive");
 		$state.setAnswerOptions(new String[]{Responses.TD_DIVE.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -292,7 +293,7 @@ rule "Boards of Canada - Music Has the Right to Children"
 	then
 		$state.setQuestion("Boards of Canada - Music Has the Right to Children");
 		$state.setAnswerOptions(new String[]{Responses.BOC_MUSIC.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -305,7 +306,7 @@ rule "Kashiwa Daisuke - Program Music"
 		$state.setQuestion("Kashiwa Daisuke - Program Music");
 		$state.setAnswerOptions(new String[]{Responses.KDP_DRUMS.getFullName(), Responses.KDP_AMBIENT.getFullName(),
 											Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -317,7 +318,7 @@ rule "Fuck Buttons - Tarot Sport"
 	then
 		$state.setQuestion("Fuck Buttons - Tarot Sport");
 		$state.setAnswerOptions(new String[]{Responses.FB_TARROT.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -330,7 +331,7 @@ rule "Tangerine Dream - Phaedra"
 		$state.setQuestion("Tangerine Dream - Phaedra");
 		$state.setAnswerOptions(new String[]{Responses.TDP_SHORT.getFullName(), Responses.TDP_AMBIENT.getFullName(),
 											Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -342,7 +343,7 @@ rule "Neu! - Neu!"
 	then
 		$state.setQuestion("Neu! - Neu!");
 		$state.setAnswerOptions(new String[]{Responses.NN_MORE_ELEC.getFullName(), Responses.NN_ELEC.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -354,7 +355,7 @@ rule "Manuel Gottsching-e2-e4"
 	then
 		$state.setQuestion("Manuel Gottsching-e2-e4");
 		$state.setAnswerOptions(new String[]{Responses.MANUEL_G.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -366,7 +367,7 @@ rule "Mort Garrison - Plantasia"
 	then
 		$state.setQuestion("Mort Garrison - Plantasia");
 		$state.setAnswerOptions(new String[]{Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -380,7 +381,7 @@ rule "Aphex Twin - Drukqs"
 		$state.setAnswerOptions(new String[]{Responses.APD_RECENT.getFullName(), Responses.APD_WILDER.getFullName(),
 											Responses.APD_STEADY.getFullName(), Responses.APD_NO_DRUMS.getFullName(),
 											Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -393,7 +394,7 @@ rule "Klaus Schulze - Timewind"
 		$state.setQuestion("Aphex Twin - Drukqs");
 		$state.setAnswerOptions(new String[]{Responses.KST.getFullName(), Responses.APD_STEADY.getFullName(),
 											Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -405,7 +406,7 @@ rule "Global Communication - 76:14"
 	then
 		$state.setQuestion("Global Communication - 76:14");
 		$state.setAnswerOptions(new String[]{Responses.GC.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -418,7 +419,7 @@ rule "Brian Eno - Amient 2: The Plateaux of Mirror"
 		$state.setQuestion("Brian Eno - Amient 2: The Plateaux of Mirror");
 		$state.setAnswerOptions(new String[]{Responses.BENO_MIX.getFullName(), Responses.BENO_BUSY.getFullName(),
 											Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -430,7 +431,7 @@ rule "Brian Eno - Ambient 1: Music For Airports"
 	then
 		$state.setQuestion("Brian Eno - Ambient 1: Music For Airports");
 		$state.setAnswerOptions(new String[]{Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -443,7 +444,7 @@ rule "Jon Hopkins - Immunity"
 		$state.setQuestion("Jon Hopkins - Immunity");
 		$state.setAnswerOptions(new String[]{Responses.JHI_PIANO.getFullName(), Responses.JHI_BEATS.getFullName(),
 											Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -455,7 +456,7 @@ rule "Helios - Eingya"
 	then
 		$state.setQuestion("Helios - Eingya");
 		$state.setAnswerOptions(new String[]{Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -469,7 +470,7 @@ rule "Daft Punk - Discovery"
 		$state.setAnswerOptions(new String[]{Responses.DPD_FUN.getFullName(), Responses.DPD_DANCE.getFullName(),
 											Responses.DPD_DIRTY.getFullName(), Responses.DPD_CARELESS.getFullName(),
 											Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -482,7 +483,7 @@ rule "Daft Punk - Discovery2"
 		$state.setQuestion("Daft Punk - Discovery");
 		$state.setAnswerOptions(new String[]{Responses.DPD_FUN.getFullName(), Responses.DPD_DIRTY.getFullName(),
 											Responses.DPD_CARELESS.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -494,7 +495,7 @@ rule "Justice - Cross"
 	then
 		$state.setQuestion("Justice - Cross");
 		$state.setAnswerOptions(new String[]{Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -506,7 +507,7 @@ rule "Sasha & John Digweed - Northern Exposure"
 	then
 		$state.setQuestion("Sasha & John Digweed - Northern Exposure");
 		$state.setAnswerOptions(new String[]{Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -519,7 +520,7 @@ rule "Shpongle - Are You Shpongled?"
 		$state.setQuestion("Shpongle - Are You Shpongled?");
 		$state.setAnswerOptions(new String[]{Responses.DPD_CARELESS.getFullName(), Responses.TFSOL_DRUMS.getFullName(),
 											Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -531,7 +532,7 @@ rule "Goldie - Timeless"
 	then
 		$state.setQuestion("Goldie - Timeless");
 		$state.setAnswerOptions(new String[]{Responses.GOLDIE.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -544,7 +545,7 @@ rule "Orbital - Brown Album"
 		$state.setQuestion("Orbital - Brown Album");
 		$state.setAnswerOptions(new String[]{Responses.OBA_LIKE.getFullName(), Responses.OBA_DANCE.getFullName(),
 											Responses.OBA_MIX.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -557,7 +558,7 @@ rule "Orbital - Brown Album2"
 		$state.setQuestion("Orbital - Brown Album");
 		$state.setAnswerOptions(new String[]{Responses.OBA_LIKE.getFullName(), Responses.OBA_MIX.getFullName(),
 											Responses.OBA_SUBTLE.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -569,7 +570,7 @@ rule "Orb - The Orb's Adventures Beyond the Ultraworld"
 	then
 		$state.setQuestion("Orb - The Orb's Adventures Beyond the Ultraworld");
 		$state.setAnswerOptions(new String[]{Responses.ORB.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -581,7 +582,7 @@ rule "The Future Sound of London - Lifeforms"
 	then
 		$state.setQuestion("Orb - The Orb's Adventures Beyond the Ultraworld");
 		$state.setAnswerOptions(new String[]{Responses.TFSOL_READY.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -594,7 +595,7 @@ rule "The Future Sound of London - Accelerator"
 		$state.setQuestion("Orb - The Orb's Adventures Beyond the Ultraworld");
 		$state.setAnswerOptions(new String[]{Responses.TFSOL_MORE.getFullName(), Responses.TFSOL_TRIPPY.getFullName(),
 											Responses.TFSOL_DRUMS.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -607,7 +608,7 @@ rule "Kanye West - 808s & Heartbreak"
 		$state.setQuestion("Kanye West - 808s & Heartbreak");
 		$state.setAnswerOptions(new String[]{Responses.K_NICE.getFullName(), Responses.K_REAL.getFullName(),
 											Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -620,7 +621,7 @@ rule "Nujabes - Metaphorical Music"
 		$state.setQuestion("Kanye West - 808s & Heartbreak");
 		$state.setAnswerOptions(new String[]{Responses.NMM_LUSH.getFullName(), Responses.NMM_STRANGER.getFullName(),
 											Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -632,7 +633,7 @@ rule "Nujabes - Metaphorical Music2"
 	then
 		$state.setQuestion("Kanye West - 808s & Heartbreak");
 		$state.setAnswerOptions(new String[]{Responses.NMM_STRANGER.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -646,7 +647,7 @@ rule "TOKiMONSTA - Midnight Menu"
 		$state.setAnswerOptions(new String[]{Responses.TIMMM_LIKE.getFullName(), Responses.TIMMM_CLASSIC.getFullName(),
 											Responses.TIMMM_STRANGER.getFullName(), Responses.TIMMM_BEATS.getFullName(),
 											Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -659,7 +660,7 @@ rule "TOKiMONSTA - Midnight Menu2"
 		$state.setQuestion("TOKiMONSTA - Midnight Menu");
 		$state.setAnswerOptions(new String[]{Responses.TIMMM_LIKE.getFullName(), Responses.TIMMM_CLASSIC.getFullName(),
 											Responses.TIMMM_STRANGER.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -671,7 +672,7 @@ rule "Flying lotus - Cosmogramma"
 	then
 		$state.setQuestion("Flying lotus - Cosmogramma");
 		$state.setAnswerOptions(new String[]{Responses.FLC.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -684,7 +685,7 @@ rule "Lone - Galaxy Garden"
 		$state.setQuestion("Lone - Galaxy Garden");
 		$state.setAnswerOptions(new String[]{Responses.LGG_LESS.getFullName(), Responses.LGG_LOVE.getFullName(),
 											Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -696,7 +697,7 @@ rule "Machinedrum - Room(s)"
 	then
 		$state.setQuestion("Machinedrum - Room(s)");
 		$state.setAnswerOptions(new String[]{Responses.MR.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -708,7 +709,7 @@ rule "Venetian Snares - Rossz Csillag Alatt Született"
 	then
 		$state.setQuestion("Venetian Snares - Rossz Csillag Alatt Született");
 		$state.setAnswerOptions(new String[]{Responses.VSRC_CALM.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -720,7 +721,7 @@ rule "Girl Talk - Feed the Animals"
 	then
 		$state.setQuestion("Girl Talk - Feed the Animals");
 		$state.setAnswerOptions(new String[]{Responses.GTALK.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -733,7 +734,7 @@ rule "The Avalanches - Since I left You"
 		$state.setQuestion("The Avalanches - Since I left You");
 		$state.setAnswerOptions(new String[]{Responses.TAV_SAMPLING.getFullName(), Responses.TAV_DARKER.getFullName(),
 											Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -745,7 +746,7 @@ rule "DJ Shadow - What Does Your Soul Look Like Part 1"
 	then
 		$state.setQuestion("DJ Shadow - What Does Your Soul Look Like Part 1");
 		$state.setAnswerOptions(new String[]{Responses.DSE.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -758,7 +759,7 @@ rule "Burial - Untrue"
 		$state.setQuestion("Burial - Untrue");
 		$state.setAnswerOptions(new String[]{Responses.BU_HAPPIER.getFullName(), Responses.BU_DARKER.getFullName(),
 											Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -770,7 +771,7 @@ rule "Burial - Untrue2"
 	then
 		$state.setQuestion("Burial - Untrue");
 		$state.setAnswerOptions(new String[]{Responses.BU_DARKER.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -782,7 +783,7 @@ rule "Massive Attack - Mezzanine"
 	then
 		$state.setQuestion("Massive Attack - Mezzanine");
 		$state.setAnswerOptions(new String[]{Responses.MAM.getFullName(), Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -794,7 +795,7 @@ rule "James Blake - James Blake"
 	then
 		$state.setQuestion("James Blake - James Blake");
 		$state.setAnswerOptions(new String[]{Responses.END.getFullName()});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
                 $state.setAnswer(ans);
 		update($state);
@@ -806,20 +807,24 @@ rule "END"
 	then
 		$state.setQuestion("You decided to stick with " + $state.getQuestion() + ". Good choice!");
 		$state.setAnswerOptions(new String[]{});
-		
+
 		String ans = wyswietl(gui, $state.getQuestion(), $state.getAnswerOptions());
-                $state.setAnswer(ans);
+        $state.setAnswer(ans);
 		update($state);
 end
 
 function String wyswietl(GUI gui, String pytanie, String[] poss) {
-	JFrame okno = gui.getFrame();
-	Object[] possible = poss;
+    gui.setLabelText(pytanie);
+    gui.setAnswerOptions(poss);
 
-	String selectedValue = (String)JOptionPane.showInputDialog(okno,
-        pytanie,"Electronic music",
-    	JOptionPane.INFORMATION_MESSAGE, null,
-      	possible, possible);
 
-	return selectedValue;
+    while (gui.getSelected() == null) {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    return gui.getSelected();
 }

@@ -57,8 +57,10 @@ public class GUI {
     }
 
     public String getSelected() {
-    	this.setSelected();
-        return selected;
+    	if (buttonGroup.getSelection() != null) {
+            return buttonGroup.getSelection().getActionCommand();
+        }
+        return null;
     }
 
     private void refresh() {
